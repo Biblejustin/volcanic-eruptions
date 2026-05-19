@@ -29,13 +29,15 @@ Stacked bars per decade (catalog starts 1500), with a dashed OLS trend line and 
 
 **In plain English:** Each bar shows how many large eruptions happened in that 10-year window. The dashed line is the trend through them all. The "bootstrap CI" is a way of asking "how confident are we in this trend?" — we recalculated the trend 2,000 times on slight reshuffles of the data and the answers were all small numbers very close to zero. So the catalog shows essentially no change over centuries in how often the planet produces large eruptions. The slight upward look is just because explorers in the 1800s found and recorded eruptions in remote places that the 1600s would have missed.
 
+**Above vs. below the line:** Decades whose bars rise *above* the dashed trend line had more catalogued VEI≥5 eruptions than the long-run average; *below* means fewer. The 1880s and 1990s have noticeably above-trend bars (Krakatau 1883; Pinatubo + Cerro Hudson 1991 plus several others). The 1700s and 1960s sit below the line — quieter stretches. Because the slope is essentially zero, "above vs below" mostly just tells you which centuries happened to have a clustering of big eruptions and which didn't.
+
 ![Decadal counts](plots/02_decadal_counts_by_vei.png)
 
 ### Great eruption timing (VEI≥6)
 
 Cumulative VEI≥6 count vs constant-rate reference + inter-event interval bar chart. The 155-year gap 1660→1815 stands out; the 1815–1991 stretch was unusually dense by recorded-history standards.
 
-**In plain English:** Left panel: the grey line is what you'd see if super-eruptions happened on a steady clock (roughly once every 60 years). The red staircase shows when they actually happened. The staircase falls below the line during quiet stretches and rises above during busy ones. Right panel: how many years passed between each VEI≥6 eruption and the next one. The 155-year gap between 1660 and 1815 (Tambora) is the longest in the record; the 1800s and 1900s were unusually busy.
+**In plain English:** Left panel: the grey line is what you'd see if super-eruptions happened on a steady clock (roughly once every 60 years). The red staircase shows when they actually happened. **Above vs. below the line:** when the red staircase is *above* the grey reference, VEI≥6 eruptions have been arriving *faster* than the long-run rate; *below* the line means they've been arriving *slower*. The catalog spent the entire 1660–1815 stretch *below* the line (the long quiet — 155 years with no VEI≥6) and then crossed above during 1815–1991 when five super-eruptions occurred in 176 years. Right panel: how many years passed between each VEI≥6 eruption and the next one. The 155-year gap between 1660 and 1815 (Tambora) is the longest in the record; the 1800s and 1900s were unusually busy.
 
 ![Great eruption timing](plots/03_great_eruption_timing.png)
 
