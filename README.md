@@ -19,11 +19,15 @@ Parallel in spirit to `earthquakes`, `spaceweather`, `famines-tracking`, `flood-
 
 VEI vs year scatter. Bubble size ∝ √deaths; red = VEI≥6. Big names (Tambora, Krakatau, Pinatubo, etc.) are annotated. The 18th century gap and the late-1980s-to-90s cluster are both visible.
 
+**In plain English:** Each circle is one eruption. The y-axis is "VEI" — the Volcanic Explosivity Index, a scale from 0 (small lava flow) to 8 (super-eruption). It works like the Richter scale for earthquakes — each step up is roughly 10× more powerful. Most circles cluster at VEI 5; the bigger ones (red dots) are once-a-century events. Tambora 1815 at VEI 7 is the only one of its kind in the entire 500-year record.
+
 ![VEI timeline](plots/01_vei_timeline.png)
 
 ### Eruptions per decade by VEI band
 
 Stacked bars per decade (catalog starts 1500), with a dashed OLS trend line and bootstrap 95% CI. Trend is tiny and barely above zero — mostly an artifact of better detection of remote 19th-century eruptions vs 16th–17th-century ones. Genuinely flat over the past century.
+
+**In plain English:** Each bar shows how many large eruptions happened in that 10-year window. The dashed line is the trend through them all. The "bootstrap CI" is a way of asking "how confident are we in this trend?" — we recalculated the trend 2,000 times on slight reshuffles of the data and the answers were all small numbers very close to zero. So the catalog shows essentially no change over centuries in how often the planet produces large eruptions. The slight upward look is just because explorers in the 1800s found and recorded eruptions in remote places that the 1600s would have missed.
 
 ![Decadal counts](plots/02_decadal_counts_by_vei.png)
 
@@ -31,11 +35,15 @@ Stacked bars per decade (catalog starts 1500), with a dashed OLS trend line and 
 
 Cumulative VEI≥6 count vs constant-rate reference + inter-event interval bar chart. The 155-year gap 1660→1815 stands out; the 1815–1991 stretch was unusually dense by recorded-history standards.
 
+**In plain English:** Left panel: the grey line is what you'd see if super-eruptions happened on a steady clock (roughly once every 60 years). The red staircase shows when they actually happened. The staircase falls below the line during quiet stretches and rises above during busy ones. Right panel: how many years passed between each VEI≥6 eruption and the next one. The 155-year gap between 1660 and 1815 (Tambora) is the longest in the record; the 1800s and 1900s were unusually busy.
+
 ![Great eruption timing](plots/03_great_eruption_timing.png)
 
 ### VEI distribution
 
 VEI histogram + semi-log survival curve. Each step up in VEI corresponds roughly to a 10× decrease in count, matching the canonical Gutenberg-Richter analog for explosive volcanism.
+
+**In plain English:** Left panel: simple count — how many eruptions of each VEI rating happened. Right panel: same data but shown as a curve dropping steeply on a log scale. Each step up in VEI cuts the number of events by roughly a factor of 10. This is the same pattern earthquakes follow: small events common, big events rare, and the rate follows a predictable formula.
 
 ![VEI distribution](plots/04_vei_distribution.png)
 
