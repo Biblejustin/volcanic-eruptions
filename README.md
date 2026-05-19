@@ -8,11 +8,36 @@ Parallel in spirit to `earthquakes`, `spaceweather`, `famines-tracking`, `flood-
 
 - **28 VEI≥5 eruptions since 1500**; **8 VEI≥6** and **1 VEI≥7** (1815 Tambora).
 - **Mean inter-VEI≥6 interval = 58.7 years** (~once per long generation). The 155-year gap 1660 → 1815 is the longest in the catalog; the 1815–1991 stretch had 5 VEI≥6 events at ~35-year cadence.
-- **Tambora 1815** is the only VEI 7 in recorded history — caused the global "Year Without Summer" of 1816 and contributed to several famines (incl. one in this catalog).
-- **VEI 5 occurs on average every ~20 years** in the modern era, but with strong clustering (1980 St Helens, 1982 El Chichón, 1991 Pinatubo, 1991 Cerro Hudson, 1991 was a major year, then a quiet 2000s–2010s, then 2022 Hunga Tonga).
-- **Most VEI≥5 eruptions have low death tolls** (single-digit thousands or less); the high-fatality outliers (Krakatau, Tambora, Mt Pelée) killed mostly via tsunamis or pyroclastic flows reaching coastal populations.
+- **Tambora 1815** is the only VEI 7 in recorded history — caused the global "Year Without Summer" of 1816 and contributed to several famines.
+- **VEI≥5 occurs on average every ~20 years** in the modern era, but with strong clustering (1980 St Helens, 1982 El Chichón, 1991 Pinatubo, 1991 Cerro Hudson, then a quiet 2000s–2010s, then 2022 Hunga Tonga).
+- **Post-1900 decadal trend = +0.002 eruptions/decade [95% CI +0.000, +0.003]** — essentially zero. Consistent with the geophysical expectation that eruption rates are steady-state on this timescale.
+- **Most VEI≥5 eruptions have low death tolls** (single-digit thousands or less); the high-fatality outliers (Krakatau, Tambora, Pelée) killed mostly via tsunamis or pyroclastic flows reaching coastal populations.
 
-See `plots/` for the four charts.
+## Sample output
+
+### VEI timeline
+
+VEI vs year scatter. Bubble size ∝ √deaths; red = VEI≥6. Big names (Tambora, Krakatau, Pinatubo, etc.) are annotated. The 18th century gap and the late-1980s-to-90s cluster are both visible.
+
+![VEI timeline](plots/01_vei_timeline.png)
+
+### Eruptions per decade by VEI band
+
+Stacked bars per decade (catalog starts 1500), with a dashed OLS trend line and bootstrap 95% CI. Trend is tiny and barely above zero — mostly an artifact of better detection of remote 19th-century eruptions vs 16th–17th-century ones. Genuinely flat over the past century.
+
+![Decadal counts](plots/02_decadal_counts_by_vei.png)
+
+### Great eruption timing (VEI≥6)
+
+Cumulative VEI≥6 count vs constant-rate reference + inter-event interval bar chart. The 155-year gap 1660→1815 stands out; the 1815–1991 stretch was unusually dense by recorded-history standards.
+
+![Great eruption timing](plots/03_great_eruption_timing.png)
+
+### VEI distribution
+
+VEI histogram + semi-log survival curve. Each step up in VEI corresponds roughly to a 10× decrease in count, matching the canonical Gutenberg-Richter analog for explosive volcanism.
+
+![VEI distribution](plots/04_vei_distribution.png)
 
 ## What's in it
 
@@ -35,22 +60,6 @@ Coverage: 1500 → 2022 (Hunga Tonga). Major events include:
 - 1980 Mt St Helens
 - 1991 Pinatubo (~0.5°C global cooling)
 - 2022 Hunga Tonga (largest atmospheric blast since 1883)
-
-## Plots
-
-`make_plots.py` generates four standalone analytical plots:
-
-### `plots/01_vei_timeline.png`
-VEI vs year scatter, bubble size ∝ √deaths, red highlights VEI≥6. Big names (Tambora, Krakatau, Pinatubo, etc.) annotated.
-
-### `plots/02_decadal_counts_by_vei.png`
-Stacked bars: eruptions per decade by VEI band (5, 6, 7+). Catalog starts 1500.
-
-### `plots/03_great_eruption_timing.png`
-Cumulative VEI≥6 count vs constant-rate reference line (0.016/yr ≈ once per 61yr) + inter-event interval bar chart. Shows the 155-yr gap 1660→1815 and the relatively even cadence afterward.
-
-### `plots/04_vei_distribution.png`
-VEI histogram + semi-log survival curve. Each step up in VEI is roughly a 10× decrease in count, matching the canonical Gutenberg-Richter analog.
 
 ## Detection-bias notes
 
