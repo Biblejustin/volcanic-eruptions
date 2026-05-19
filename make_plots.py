@@ -80,28 +80,40 @@ def plot_02_decadal_counts_by_vei(df: pd.DataFrame):
         bottom += counts
     ax.axvspan(PARTIAL_DECADE_START, PARTIAL_DECADE_START + 10,
                 color="grey", alpha=0.18, label="partial")
-    # Trend line on total per decade
-    totals = np.array(bottom)
-    full_mask = decades < PARTIAL_DECADE_START
-    x_fit = decades[full_mask]; y_fit = totals[full_mask]
-    slope, intercept = np.polyfit(x_fit, y_fit, 1)
+    # Multi-era trend lines
+    totals = np.array(bottom, dtype=float)
+    eras = [
+        (CATALOG_START, "Full catalog (1500+)", "#222222", "--"),
+        (1850, "Telegraph era (1850+)", "#33aa66", ":"),
+        (1900, "Modern detection (1900+)", "#3366cc", "-."),
+    ]
+    fits = []
     rng = np.random.default_rng(42)
-    boot = []
-    for _ in range(2000):
-        idx = rng.integers(0, len(x_fit), len(x_fit))
-        s, _ = np.polyfit(x_fit[idx], y_fit[idx], 1)
-        boot.append(s)
-    ci_lo, ci_hi = np.percentile(boot, [2.5, 97.5])
-    ax.plot(decades, slope * decades + intercept, "k--", linewidth=1.5,
-              label=f"OLS trend: {slope:+.3f}/decade  [95% CI {ci_lo:+.3f}, {ci_hi:+.3f}]")
+    for era_start, label, color, ls in eras:
+        mask = (decades >= era_start) & (decades < PARTIAL_DECADE_START)
+        if mask.sum() < 3:
+            fits.append((label, np.nan, np.nan, np.nan)); continue
+        x_fit = decades[mask].astype(float); y_fit = totals[mask]
+        slope, intercept = np.polyfit(x_fit, y_fit, 1)
+        boots = []
+        for _ in range(2000):
+            idx = rng.integers(0, len(x_fit), len(x_fit))
+            s, _ = np.polyfit(x_fit[idx], y_fit[idx], 1)
+            boots.append(s)
+        lo, hi = np.percentile(boots, [2.5, 97.5])
+        line_x = np.linspace(era_start, decades.max(), 50)
+        ax.plot(line_x, slope * line_x + intercept, ls, color=color,
+                  linewidth=1.6,
+                  label=f"{label}: {slope:+.3f}/dec [CI {lo:+.3f}, {hi:+.3f}]")
+        fits.append((label, slope, lo, hi))
     ax.set_xlabel("Decade")
     ax.set_ylabel("Eruptions per decade")
     ax.set_title(f"Eruptions per decade by VEI band (catalog ≥{CATALOG_START})")
-    ax.legend(loc="upper left", fontsize=9)
+    ax.legend(loc="upper left", fontsize=8)
     plt.tight_layout()
     plt.savefig(PLOTS / "02_decadal_counts_by_vei.png")
     plt.close()
-    return slope, ci_lo, ci_hi
+    return fits
 
 
 def plot_03_great_eruption_timing(df: pd.DataFrame):
@@ -177,8 +189,9 @@ def main():
     print(f"Loaded {len(df)} VEI≥5 eruptions; {int(df['year'].min())}–{int(df['year'].max())}")
     print(f"VEI≥6: {(df['vei'] >= 6).sum()}; VEI≥7: {(df['vei'] >= 7).sum()}")
     plot_01_vei_timeline(df)
-    slope, lo, hi = plot_02_decadal_counts_by_vei(df)
-    print(f"Decadal trend ({CATALOG_START}+): {slope:+.3f}/decade [95% CI {lo:+.3f}, {hi:+.3f}]")
+    fits = plot_02_decadal_counts_by_vei(df)
+    for label, slope, lo, hi in fits:
+        print(f"  {label:<40} {slope:+.3f}/dec  [CI {lo:+.3f}, {hi:+.3f}]")
     plot_03_great_eruption_timing(df)
     plot_04_vei_distribution(df)
     print(f"Wrote 4 plots to {PLOTS}/")
