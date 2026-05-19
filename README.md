@@ -4,6 +4,16 @@ Hand-curated catalog of VEI ≥ 5 volcanic eruptions since 1500 CE, plus a handf
 
 Parallel in spirit to `earthquakes`, `spaceweather`, `famines-tracking`, `flood-data`.
 
+## Quick findings
+
+- **28 VEI≥5 eruptions since 1500**; **8 VEI≥6** and **1 VEI≥7** (1815 Tambora).
+- **Mean inter-VEI≥6 interval = 58.7 years** (~once per long generation). The 155-year gap 1660 → 1815 is the longest in the catalog; the 1815–1991 stretch had 5 VEI≥6 events at ~35-year cadence.
+- **Tambora 1815** is the only VEI 7 in recorded history — caused the global "Year Without Summer" of 1816 and contributed to several famines (incl. one in this catalog).
+- **VEI 5 occurs on average every ~20 years** in the modern era, but with strong clustering (1980 St Helens, 1982 El Chichón, 1991 Pinatubo, 1991 Cerro Hudson, 1991 was a major year, then a quiet 2000s–2010s, then 2022 Hunga Tonga).
+- **Most VEI≥5 eruptions have low death tolls** (single-digit thousands or less); the high-fatality outliers (Krakatau, Tambora, Mt Pelée) killed mostly via tsunamis or pyroclastic flows reaching coastal populations.
+
+See `plots/` for the four charts.
+
 ## What's in it
 
 `volcanoes.csv` — columns:
@@ -26,6 +36,22 @@ Coverage: 1500 → 2022 (Hunga Tonga). Major events include:
 - 1991 Pinatubo (~0.5°C global cooling)
 - 2022 Hunga Tonga (largest atmospheric blast since 1883)
 
+## Plots
+
+`make_plots.py` generates four standalone analytical plots:
+
+### `plots/01_vei_timeline.png`
+VEI vs year scatter, bubble size ∝ √deaths, red highlights VEI≥6. Big names (Tambora, Krakatau, Pinatubo, etc.) annotated.
+
+### `plots/02_decadal_counts_by_vei.png`
+Stacked bars: eruptions per decade by VEI band (5, 6, 7+). Catalog starts 1500.
+
+### `plots/03_great_eruption_timing.png`
+Cumulative VEI≥6 count vs constant-rate reference line (0.016/yr ≈ once per 61yr) + inter-event interval bar chart. Shows the 155-yr gap 1660→1815 and the relatively even cadence afterward.
+
+### `plots/04_vei_distribution.png`
+VEI histogram + semi-log survival curve. Each step up in VEI is roughly a 10× decrease in count, matching the canonical Gutenberg-Richter analog.
+
 ## Detection-bias notes
 
 | Band | Coverage |
@@ -37,6 +63,14 @@ Coverage: 1500 → 2022 (Hunga Tonga). Major events include:
 
 For the correlations work, use VEI ≥ 5 as the M ≥ 7-analog band.
 
+## Reproducing the plots
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install pandas numpy matplotlib
+.venv/bin/python make_plots.py
+```
+
 ## Source
 
 Primary: Smithsonian Institution Global Volcanism Program — https://volcano.si.edu/
@@ -47,4 +81,4 @@ Death-toll estimates from:
 
 ## Intended use
 
-Data source for the volcano correlation tests in [`Biblejustin/correlations`](https://github.com/Biblejustin/correlations). Expected non-null result: volcanic eruptions × earthquakes (subduction-zone coupling is real physics).
+Data source for the volcano correlation tests in [`Biblejustin/correlations`](https://github.com/Biblejustin/correlations). Expected non-null result: volcanic eruptions × earthquakes (subduction-zone coupling is real physics, though at much shorter timescales than yearly counts).
