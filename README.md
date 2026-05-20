@@ -2,7 +2,7 @@
 
 Hand-curated catalog of VEI ≥ 5 volcanic eruptions since 1500 CE, plus a handful of notable VEI 4 events with major societal impact (Pelée, Eyjafjallajökull).
 
-Parallel in spirit to `earthquakes`, `spaceweather`, `famines-tracking`, `flood-data`.
+One of 10 sibling repos analyzed together — see the [`correlations`](https://github.com/Biblejustin/correlations) hub for the cross-repo analysis.
 
 ## Quick findings
 
